@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: hospitalManagement
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/hospitalDB
+    username: postgres
+    password: admin123
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    # database-platform: org.hibernate.dialect.PostgreSQLDialect  # Tells Hibernate which SQL dialect to use
+    properties:
+      hibernate:
+        format_sql: true  # Printed SQL queries nicely formatted
