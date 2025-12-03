@@ -16,3 +16,7 @@ spring:
     properties:
       hibernate:
         format_sql: true  # Printed SQL queries nicely formatted
+  security:
+    user:  #default username and password
+      name: user
+      password: password

@@ -15,5 +15,4 @@ public class PublicController {
         return  ResponseEntity.ok("please create account/signIn");
     }
 
-
 }
