@@ -34,7 +34,7 @@ public class InsuranceService {
 
 
 /*
-| Injection Type   | Annotation            | Pros                         | Cons                      |
+        | Injection Type   | Annotation            | Pros                         | Cons                      |
         | ---------------- | --------------------- | ---------------------------- | ------------------------- |
         | Constructor      | `@Autowired` optional | Immutable, testable, clean   | Slightly more boilerplate |
         | Field            | `@Autowired`          | Simple                       | Not testable, not final   |

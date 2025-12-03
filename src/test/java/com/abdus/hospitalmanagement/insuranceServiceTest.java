@@ -43,7 +43,6 @@ public class insuranceServiceTest {
                 .reason("heart attack")
                 .appointmentTime(LocalDateTime.of(2025,11,05,4,55))
                 .build();
-        appointmentService.createAppointment(appointment,1L,3L);
 
         System.out.println(appointment);
 

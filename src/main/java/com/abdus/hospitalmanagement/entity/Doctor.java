@@ -1,5 +1,6 @@
 package com.abdus.hospitalmanagement.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -26,7 +27,10 @@ public class Doctor {
     private String email;
 
 
-    @ManyToMany(mappedBy = "doctors")
+
+
+    @ManyToMany(mappedBy = "doctors",fetch = FetchType.LAZY)
     @ToString.Exclude
+    @JsonIgnore
     private List<Department> departments;
 }

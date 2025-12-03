@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @ToString
 @Builder
+@Table(name = "appointment")
 public class Appointment {
 
     @Id
