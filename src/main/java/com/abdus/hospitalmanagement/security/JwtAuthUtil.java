@@ -1,28 +1,31 @@
 package com.abdus.hospitalmanagement.security;
 
 import com.abdus.hospitalmanagement.entity.User;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-
-import java.security.Key;
+import javax.crypto.SecretKey;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
 @Component
 public class JwtAuthUtil {
 
-//    @Value("${jwt.secretKey")
-//    private String jwtSecretKey;
-//    private SecretKey getSecretKey(){  /// returning encrypted Secret key
-//        return Keys.hmacShaKeyFor(jwtSecretKey.getBytes(StandardCharsets.UTF_8));
-//    }
+    @Value("${jwt.secretKey}")
+    private String jwtSecretKey;
 
 
-    public static Key getSecretKey() {
-        // Generates a secure 256-bit key for HS256
-        return Keys.secretKeyFor(SignatureAlgorithm.HS256);
+    private SecretKey getSecretKey() {  /// returning encrypted Secret key
+        return Keys.hmacShaKeyFor(jwtSecretKey.getBytes(StandardCharsets.UTF_8));
     }
+
+
+//    public static Key getSecretKey() {
+//        // Generates a secure 256-bit key for HS256
+//        return Keys.secretKeyFor(SignatureAlgorithm.HS256);
+//    }
 
     public String generateAccessToken(User user){
         return Jwts.builder()
@@ -34,4 +37,16 @@ public class JwtAuthUtil {
                 .compact();
 
     }
+
+    public String getUsernameFromToken(String token) {
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(getSecretKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+
+        return claims.getSubject();
+    }
+
+
 }

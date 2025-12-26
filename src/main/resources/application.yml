@@ -22,5 +22,5 @@ spring:
       password: password
 
 jwt:
-  secretKey: "salkjlasdfjlaskjflaskjdflasdjflasdjflasdfjlasdfjlaskfjaslkfjlasfjaskdfjasldfjlknvoiwjjlkajsf"
+  secretKey: "salkjlasdfjlaskjflaskjdflasdjflasdjflasdfjlasaksfjlaksjdflkasjfdlksjfdlkjalkfsjdfjlaskfjaslkfjlasfjaskdfjasldfjlknvoiwjjlkajsf"
 #  expiration: 3600000   # 1 hour in ms
