@@ -20,3 +20,7 @@ spring:
     user:  #default username and password
       name: user
       password: password
+
+jwt:
+  secretKey: "salkjlasdfjlaskjflaskjdflasdjflasdjflasdfjlasdfjlaskfjaslkfjlasfjaskdfjasldfjlknvoiwjjlkajsf"
+#  expiration: 3600000   # 1 hour in ms
