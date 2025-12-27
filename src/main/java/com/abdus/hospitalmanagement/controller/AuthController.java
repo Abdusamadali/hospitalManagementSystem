@@ -1,8 +1,8 @@
-package com.abdus.hospitalmanagement.Controller;
+package com.abdus.hospitalmanagement.controller;
 
-import com.abdus.hospitalmanagement.DTO.LoginRequestDto;
-import com.abdus.hospitalmanagement.DTO.LoginResponseDto;
-import com.abdus.hospitalmanagement.DTO.SingUpResponseDto;
+import com.abdus.hospitalmanagement.dto.LoginRequestDto;
+import com.abdus.hospitalmanagement.dto.LoginResponseDto;
+import com.abdus.hospitalmanagement.dto.SingUpResponseDto;
 import com.abdus.hospitalmanagement.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

@@ -1,7 +1,7 @@
 package com.abdus.hospitalmanagement.service;
 
 
-import com.abdus.hospitalmanagement.DTO.AppointmentDTO;
+import com.abdus.hospitalmanagement.dto.AppointmentDTO;
 import com.abdus.hospitalmanagement.entity.Appointment;
 import com.abdus.hospitalmanagement.entity.Doctor;
 import com.abdus.hospitalmanagement.entity.Patient;
@@ -9,14 +9,11 @@ import com.abdus.hospitalmanagement.repository.AppointmentRepository;
 import com.abdus.hospitalmanagement.repository.DoctorRepository;
 import com.abdus.hospitalmanagement.repository.PatientRepository;
 import jakarta.transaction.Transactional;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service

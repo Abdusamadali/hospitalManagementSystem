@@ -1,8 +1,8 @@
 package com.abdus.hospitalmanagement.service;
 
-import com.abdus.hospitalmanagement.DTO.LoginRequestDto;
-import com.abdus.hospitalmanagement.DTO.LoginResponseDto;
-import com.abdus.hospitalmanagement.DTO.SingUpResponseDto;
+import com.abdus.hospitalmanagement.dto.LoginRequestDto;
+import com.abdus.hospitalmanagement.dto.LoginResponseDto;
+import com.abdus.hospitalmanagement.dto.SingUpResponseDto;
 import com.abdus.hospitalmanagement.entity.User;
 import com.abdus.hospitalmanagement.repository.UserRepository;
 import com.abdus.hospitalmanagement.security.JwtAuthUtil;
@@ -29,9 +29,7 @@ public class AuthService {
                 new UsernamePasswordAuthenticationToken(loginRequestDto.getUsername(), loginRequestDto.getPassword())
         );
         User user = (User)authenticate.getPrincipal();
-
         String token = jwtAuthUtil.generateAccessToken(user);
-
         return new LoginResponseDto(token,user.getId());
     }
 
@@ -39,7 +37,6 @@ public class AuthService {
         if (userRepository.existsByUsername((requestDto.getUsername()))){
             throw new IllegalArgumentException("User already exists");
         }
-
 
         User save = userRepository.save(
                 User.builder().username(requestDto.getUsername())

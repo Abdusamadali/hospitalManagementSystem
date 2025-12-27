@@ -1,4 +1,4 @@
-package com.abdus.hospitalmanagement.Controller;
+package com.abdus.hospitalmanagement.controller;
 
 import com.abdus.hospitalmanagement.entity.User;
 import com.abdus.hospitalmanagement.entity.Doctor;

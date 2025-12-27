@@ -1,10 +1,8 @@
-package com.abdus.hospitalmanagement.DTO;
+package com.abdus.hospitalmanagement.dto;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import lombok.Data;
-
-import java.util.List;
 
 @Data
 public class AppointmentDTO {

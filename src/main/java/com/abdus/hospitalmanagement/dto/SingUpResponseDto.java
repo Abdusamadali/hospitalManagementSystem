@@ -1,4 +1,4 @@
-package com.abdus.hospitalmanagement.DTO;
+package com.abdus.hospitalmanagement.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

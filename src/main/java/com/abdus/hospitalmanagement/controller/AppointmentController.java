@@ -1,7 +1,7 @@
-package com.abdus.hospitalmanagement.Controller;
+package com.abdus.hospitalmanagement.controller;
 
 
-import com.abdus.hospitalmanagement.DTO.AppointmentDTO;
+import com.abdus.hospitalmanagement.dto.AppointmentDTO;
 
 import com.abdus.hospitalmanagement.service.AppointmentService;
 
