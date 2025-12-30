@@ -1,6 +1,7 @@
 package com.abdus.hospitalmanagement.entity;
 
 
+import com.abdus.hospitalmanagement.entity.type.AuthProviderType;
 import jakarta.persistence.*;
 import jdk.jfr.StackTrace;
 import lombok.*;
@@ -23,11 +24,16 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false,unique = true)
     private String username;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String password;
+
+    private String providerId;
+
+    @Enumerated(EnumType.STRING)
+     private AuthProviderType providerType;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

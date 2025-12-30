@@ -45,4 +45,9 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(apiError,apiError.getHttpStatus());
     }
 
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ApiError> handleUserExists(IllegalArgumentException e) {
+      ApiError apiError = new ApiError("User already exists",HttpStatus.BAD_REQUEST);
+      return new ResponseEntity<>(apiError,apiError.getHttpStatus());
+    }
 }

@@ -1,7 +1,6 @@
 package com.abdus.hospitalmanagement.security;
 
 import com.abdus.hospitalmanagement.entity.User;
-import com.abdus.hospitalmanagement.repository.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,7 +20,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 @Slf4j
 public class JwtFilter extends OncePerRequestFilter {
-    private final JwtAuthUtil jwtAuthUtil;
+    private final AuthUtil authUtil;
     private final UserDetailsServiceImplementation userDetailsServiceImplementation;
     private final HandlerExceptionResolver handlerExceptionResolver;
     @Override
@@ -36,7 +35,7 @@ public class JwtFilter extends OncePerRequestFilter {
             }
 
             String token = requestTokenHeader.split("Bearer ")[1];
-            String username = jwtAuthUtil.getUsernameFromToken(token);
+            String username = authUtil.getUsernameFromToken(token);
 
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 User user = (User) userDetailsServiceImplementation.loadUserByUsername(username);
@@ -52,4 +51,13 @@ public class JwtFilter extends OncePerRequestFilter {
        }
 
     }
+
+//    @Override
+//    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+//        String path = request.getServletPath();
+//        // These paths must be ignored by the JWT logic entirely
+//        return path.startsWith("/oauth2/") ||
+//                path.startsWith("/login/") ||
+//                path.startsWith("/auth/");
+//    }
 }

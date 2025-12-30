@@ -1,6 +1,5 @@
 package com.abdus.hospitalmanagement.entity;
 
-import com.fasterxml.jackson.databind.introspect.Annotated;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,11 +25,10 @@ public class Patient {
     private LocalDate dob;
     private String gender;
 
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "insurance_id")
     private Insurance insurance; //owning side
-
-
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL )
     private List<Appointment> appointments;

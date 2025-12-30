@@ -20,7 +20,18 @@ spring:
     user:  #default username and password
       name: user
       password: password
-
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_CLIENT_ID}
+            client-secret: ${GOOGLE_CLIENT_SECRET}
+#            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+          github:
+            client-id: xxx
+            client-secret: xxx
 jwt:
   secretKey: "salkjlasdfjlaskjflaskjdflasdjflasdjflasdfjlasaksfjlaksjdflkasjfdlksjfdlkjalkfsjdfjlaskfjaslkfjlasfjaskdfjasldfjlknvoiwjjlkajsf"
 #  expiration: 3600000   # 1 hour in ms
+
+
