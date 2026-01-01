@@ -25,7 +25,10 @@ public class JwtFilter extends OncePerRequestFilter {
     private final HandlerExceptionResolver handlerExceptionResolver;
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-       try {
+        String path = request.getServletPath();
+
+
+        try {
             log.info("incoming request: {}", request.getRequestURI());
             final String requestTokenHeader = request.getHeader("Authorization");
 
@@ -52,12 +55,16 @@ public class JwtFilter extends OncePerRequestFilter {
 
     }
 
-//    @Override
-//    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
-//        String path = request.getServletPath();
-//        // These paths must be ignored by the JWT logic entirely
-//        return path.startsWith("/oauth2/") ||
-//                path.startsWith("/login/") ||
-//                path.startsWith("/auth/");
-//    }
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+        String path = request.getServletPath();
+
+        return path.startsWith("/oauth2/")
+                || path.startsWith("/login/")
+                || path.startsWith("/auth/")
+                || path.startsWith("/v3/api-docs")
+                || path.startsWith("/swagger-ui")
+                || path.equals("/swagger-ui.html");
+    }
+
 }

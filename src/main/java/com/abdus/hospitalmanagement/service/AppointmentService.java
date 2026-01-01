@@ -10,6 +10,7 @@ import com.abdus.hospitalmanagement.repository.DoctorRepository;
 import com.abdus.hospitalmanagement.repository.PatientRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -24,6 +25,8 @@ public class AppointmentService {
     private final DoctorRepository doctorRepository;
     private final PatientRepository patientRepository;
 
+
+     @PreAuthorize("hasRole('ADMIN') OR hasRole('DOCTOR') ")
     public Appointment createAppointment(AppointmentDTO appointmentDTO) throws Exception {
 
         Appointment appointment = new Appointment();
@@ -52,11 +55,16 @@ public class AppointmentService {
 //
         return getAppointmentDTOS(appointments);
     }
+
+
+    @PreAuthorize("hasRole('ADMIN') OR hasRole('DOCTOR') and #doctorId == authentication.principal.id  ")
     public List<AppointmentDTO> getAppointmentsByDoctorId(Long doctorId) {
         List<Appointment>appnt =  appointmentRepository.findAll()
                 .stream().filter(x->x.getDoctor().getId().equals(doctorId)).toList();
         return getAppointmentDTOS(appnt);
     }
+
+//    @PreAuthorize("ROLE_DOCTOR")
     private List<AppointmentDTO> getAppointmentDTOS(List<Appointment> appnt) {
         return appnt.stream().map(x->{
             AppointmentDTO appointmentDTO = new AppointmentDTO();

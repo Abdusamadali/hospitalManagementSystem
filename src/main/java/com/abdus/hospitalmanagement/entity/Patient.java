@@ -1,9 +1,7 @@
 package com.abdus.hospitalmanagement.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -13,6 +11,9 @@ import java.util.List;
 @Setter
 @ToString(exclude = "appointments")
 @Table(name = "patient")
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Patient {
 
     @Id
@@ -20,11 +21,18 @@ public class Patient {
     private Long id;
 
 
+    @Column(nullable = false)
     private String name;
+    @Column(nullable = false)
     private String email;
     private LocalDate dob;
+
+
     private String gender;
 
+    @OneToOne
+    @MapsId
+    private User user;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "insurance_id")
@@ -32,4 +40,6 @@ public class Patient {
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL )
     private List<Appointment> appointments;
+
+
 }

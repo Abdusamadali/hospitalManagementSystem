@@ -2,6 +2,7 @@ package com.abdus.hospitalmanagement.controller;
 
 import com.abdus.hospitalmanagement.dto.LoginRequestDto;
 import com.abdus.hospitalmanagement.dto.LoginResponseDto;
+import com.abdus.hospitalmanagement.dto.SignUpRequestDto;
 import com.abdus.hospitalmanagement.dto.SingUpResponseDto;
 import com.abdus.hospitalmanagement.service.AuthService;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +26,7 @@ public class AuthController {
       }
 
       @PostMapping("/signup")
-    public ResponseEntity<SingUpResponseDto>singUp(@RequestBody LoginRequestDto requestDto){
+    public ResponseEntity<SingUpResponseDto>singUp(@RequestBody SignUpRequestDto requestDto){
 
           return ResponseEntity.ok(authService.sign(requestDto));
       }

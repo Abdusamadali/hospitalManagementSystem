@@ -2,8 +2,13 @@ package com.abdus.hospitalmanagement.service;
 
 import com.abdus.hospitalmanagement.dto.LoginRequestDto;
 import com.abdus.hospitalmanagement.dto.LoginResponseDto;
+import com.abdus.hospitalmanagement.dto.SignUpRequestDto;
+import com.abdus.hospitalmanagement.dto.SingUpResponseDto;
+import com.abdus.hospitalmanagement.entity.Patient;
 import com.abdus.hospitalmanagement.entity.User;
 import com.abdus.hospitalmanagement.entity.type.AuthProviderType;
+import com.abdus.hospitalmanagement.entity.type.Role;
+import com.abdus.hospitalmanagement.repository.PatientRepository;
 import com.abdus.hospitalmanagement.repository.UserRepository;
 import com.abdus.hospitalmanagement.security.AuthUtil;
 import jakarta.transaction.Transactional;
@@ -14,26 +19,29 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
+
 @Service
 @RequiredArgsConstructor
 public class OAuth2LoginService {
 
     private  final UserRepository userRepository;
+    private final PatientRepository patientRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthUtil authUtil;
 
-    public User signOAuth2(LoginRequestDto requestDto, AuthProviderType authProviderType, String providerId) {
+    @Transactional
+    public User signOAuth2(SignUpRequestDto requestDto, AuthProviderType authProviderType, String providerId) {
         if (userRepository.existsByUsernameIgnoreCase((requestDto.getUsername()))){
             throw new IllegalArgumentException("User already exists");
         }
-
-
 
         User user  = User.builder()
                 .username(requestDto.getUsername())
 //                        .password(passwordEncoder.encode(requestDto.getPassword()))
                 .providerId(providerId)
                 .providerType(authProviderType)
+                .roles(Set.of(Role.PATIENT))
                 .build();
 
 
@@ -41,10 +49,16 @@ public class OAuth2LoginService {
             user.setPassword(passwordEncoder.encode(requestDto.getPassword()));
         }
 
-        return userRepository.save(user);
+        user = userRepository.save(user);
+        Patient patient = Patient.builder()
+                .user(user)
+                .email(requestDto.getEmail())
+                .name(requestDto.getUsername())
+                .build();
+        patientRepository.save(patient);
+        return user;
     }
 
-    @Transactional
     public ResponseEntity<LoginResponseDto> handleOAuth2LoginRequest(
             OAuth2User oAuth2User, String registrationId) {
 
@@ -70,7 +84,7 @@ public class OAuth2LoginService {
                     authUtil.determineUsernameFromOAuth2User(oAuth2User, registrationId, providerId);
 
             user = (User) signOAuth2(
-                    new LoginRequestDto(username, null),
+                    new SignUpRequestDto(username, email,null),
                     providerType,
                     providerId
             );
