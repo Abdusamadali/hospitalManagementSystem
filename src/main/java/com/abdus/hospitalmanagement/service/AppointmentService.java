@@ -31,18 +31,15 @@ public class AppointmentService {
 
         Appointment appointment = new Appointment();
 
-
-
             Doctor doctor = doctorRepository.findById(appointmentDTO.getDoctorId()).orElseThrow(()-> new Exception("Doctor not found"));
             Patient patient = patientRepository.findById(appointmentDTO.getPatientId()).orElseThrow(()->new Exception("Patient not found"));
             appointment.setAppointmentTime(LocalDateTime.now());
             appointment.setDoctor(doctor);
             appointment.setPatient(patient);
             appointment.setReason(appointmentDTO.getReason());
-//        patient.getAppointments().add(appointment);
+     //        patient.getAppointments().add(appointment);
 
-            appointmentRepository.save(appointment);
-            return appointment;
+            return appointmentRepository.save(appointment);
 
     }
 
@@ -65,7 +62,7 @@ public class AppointmentService {
     }
 
 //    @PreAuthorize("ROLE_DOCTOR")
-    private List<AppointmentDTO> getAppointmentDTOS(List<Appointment> appnt) {
+    public List<AppointmentDTO> getAppointmentDTOS(List<Appointment> appnt) {
         return appnt.stream().map(x->{
             AppointmentDTO appointmentDTO = new AppointmentDTO();
             appointmentDTO.setId(x.getId());
@@ -76,5 +73,12 @@ public class AppointmentService {
         }).toList();
     }
 
+    public void deleteAppointmentById(Long id){
+         if(appointmentRepository.existsById(id)) {
+             appointmentRepository.deleteById(id);
+         }else{
+             throw new RuntimeException("appointment does not exists");
+         }
 
+    }
 }

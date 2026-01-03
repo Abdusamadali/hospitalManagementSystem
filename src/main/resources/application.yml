@@ -1,7 +1,6 @@
 spring:
   application:
     name: hospitalManagement
-
   datasource:
     url: jdbc:postgresql://localhost:5432/hospitalDB
     username: postgres
@@ -35,3 +34,9 @@ jwt:
 #  expiration: 3600000   # 1 hour in ms
 
 
+#springdoc:
+#  api-docs:
+#    enabled: true
+#  swagger-ui:
+#    enabled: true
+#    path: /swagger-ui.html

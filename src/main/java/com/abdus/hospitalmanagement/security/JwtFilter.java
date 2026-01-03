@@ -23,6 +23,24 @@ public class JwtFilter extends OncePerRequestFilter {
     private final AuthUtil authUtil;
     private final UserDetailsServiceImplementation userDetailsServiceImplementation;
     private final HandlerExceptionResolver handlerExceptionResolver;
+
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+        String path = request.getServletPath();
+
+        return path.startsWith("/oauth2/")
+                || path.startsWith("/login")
+                || path.startsWith("/auth/")
+                || path.contains("/v3/api-docs")
+                || path.contains("/swagger-ui")
+                // Add these specifically based on your logs:
+                || path.equals("/swagger-ui.html")
+                || path.endsWith(".css")
+                || path.endsWith(".js")
+                || path.equals("/favicon.ico")
+                ||path.equals("/error");
+    }
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String path = request.getServletPath();
@@ -55,16 +73,6 @@ public class JwtFilter extends OncePerRequestFilter {
 
     }
 
-    @Override
-    protected boolean shouldNotFilter(HttpServletRequest request) {
-        String path = request.getServletPath();
 
-        return path.startsWith("/oauth2/")
-                || path.startsWith("/login/")
-                || path.startsWith("/auth/")
-                || path.startsWith("/v3/api-docs")
-                || path.startsWith("/swagger-ui")
-                || path.equals("/swagger-ui.html");
-    }
 
 }
